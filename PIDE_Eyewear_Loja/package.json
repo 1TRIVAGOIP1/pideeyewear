@@ -1,8 +1,0 @@
-{
-  "name": "pide-eyewear-loja",
-  "private": true,
-  "type": "module",
-  "engines": {
-    "node": ">=20"
-  }
-}
