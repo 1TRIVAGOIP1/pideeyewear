@@ -45,7 +45,7 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Método não permitido.' });
   res.setHeader('Access-Control-Allow-Origin', process.env.ALLOWED_ORIGIN || '*');
   try {
-    if (!process.env.MP_ACCESS_TOKEN) throw new Error('Integração de pagamento ainda não configurada.');
+    if (!process.env.MERCADO_PAGO_ACCESS_TOKEN) throw new Error('Integração de pagamento ainda não configurada.');
     const body = typeof req.body === 'string' ? JSON.parse(req.body) : (req.body || {});
     const requested = Array.isArray(body.items) ? body.items : [];
     if (!requested.length) return res.status(400).json({ error: 'Carrinho vazio.' });
@@ -75,7 +75,7 @@ export default async function handler(req, res) {
     const mp = await fetch('https://api.mercadopago.com/checkout/preferences', {
       method:'POST',
       headers: {
-        'Authorization': `Bearer ${process.env.MP_ACCESS_TOKEN}`,
+        'Authorization': `Bearer ${process.env.MERCADO_PAGO_ACCESS_TOKEN}`,
         'Content-Type':'application/json'
       },
       body: JSON.stringify(preference)
